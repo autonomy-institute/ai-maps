@@ -1,7 +1,6 @@
 import { GetServerSideProps } from 'next';
 import { useCallback, useState } from 'react';
-import Map, { MapLayerMouseEvent } from 'react-map-gl';
-import { MapMouseEvent } from 'mapbox-gl';
+import Map, { AttributionControl, MapLayerMouseEvent } from 'react-map-gl';
 import { Box } from '@chakra-ui/react';
 import Layers from '@components/Layers';
 import { MapItem } from '@lib/types';
@@ -23,8 +22,6 @@ export default function MapPage({ item }: Props) {
 
   const onClick = useCallback((event: MapLayerMouseEvent) => {
     const feature = event.features && event.features[0];
-
-    console.log(feature);
   }, []);
 
   return (
@@ -32,14 +29,16 @@ export default function MapPage({ item }: Props) {
       <Map
         initialViewState={item.initialViewState}
         mapboxAccessToken="pk.eyJ1IjoiYXRyaXVzdGVjaCIsImEiOiJjanAwODBwb3UwdXpqM2pwNDBydGlodzkxIn0.008dDfZA13OT8MYDFS-k7w"
-        mapStyle={item.style}
+        mapStyle="mapbox://styles/mapbox/dark-v10"
         style={{ width: '100%', height: '100%' }}
         onClick={onClick}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         interactiveLayerIds={item.layers.map(({ id }) => id)}
         cursor={cursor}
+        attributionControl={false}
       >
+        <AttributionControl compact={true} />
         <Layers layers={item.layers}></Layers>
       </Map>
     </Box>
