@@ -21,18 +21,13 @@ export default function MapPage({ item }: Props) {
   const onMouseEnter = useCallback(() => setCursor('pointer'), []);
   const onMouseLeave = useCallback(() => setCursor('auto'), []);
 
-  const onClick = useCallback((event: MapLayerMouseEvent) => {
-    const feature = event.features && event.features[0];
-  }, []);
-
   return (
     <Box position="absolute" w="100vw" h="100vh">
       <Map
         initialViewState={item.initialViewState}
         mapboxAccessToken="pk.eyJ1IjoiYXRyaXVzdGVjaCIsImEiOiJjanAwODBwb3UwdXpqM2pwNDBydGlodzkxIn0.008dDfZA13OT8MYDFS-k7w"
-        mapStyle="mapbox://styles/mapbox/dark-v10"
+        mapStyle={item.style}
         style={{ width: '100%', height: '100%' }}
-        onClick={onClick}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         interactiveLayerIds={item.layers.map(({ id }) => id)}
