@@ -2,6 +2,7 @@ import { GetServerSideProps } from 'next';
 import { useCallback, useState } from 'react';
 import Map, { AttributionControl, MapLayerMouseEvent } from 'react-map-gl';
 import { Box } from '@chakra-ui/react';
+import DefaultLayers from '@components/DefaultLayers';
 import Layers from '@components/Layers';
 import { MapItem } from '@lib/types';
 import { getMapItem } from '@lib/queries';
@@ -37,8 +38,10 @@ export default function MapPage({ item }: Props) {
         interactiveLayerIds={item.layers.map(({ id }) => id)}
         cursor={cursor}
         attributionControl={false}
+        terrain={{ source: 'mapbox-dem' }}
       >
         <AttributionControl compact={true} />
+        <DefaultLayers defaultLayers={item.defaultLayers}></DefaultLayers>
         <Layers layers={item.layers}></Layers>
       </Map>
     </Box>

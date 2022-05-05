@@ -5,8 +5,11 @@ export interface Map {
   style: string;
   center: GeoJSON.Point;
   zoom: number;
+  defaultLayers: DefaultLayer[];
   layers: MapLayer[];
 }
+
+export type DefaultLayer = 'buildings' | 'terrain';
 
 export interface MapLayer {
   layer: Layer;

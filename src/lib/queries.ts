@@ -4,7 +4,7 @@ import { Map } from './models';
 import { MapItem } from './types';
 
 const LAYERS_FIELDS = ['id', 'name', 'cluster', 'file', 'style'];
-const MAPS_FIELDS = ['id', 'title', 'slug', 'style', 'center', 'zoom'];
+const MAPS_FIELDS = ['id', 'title', 'slug', 'style', 'center', 'zoom', 'defaultLayers'];
 
 type MapQuery = {
   slug: string;
@@ -43,7 +43,7 @@ function joinFields(base: string[], fields: string[], path: string) {
 }
 
 function toMapItem(map: Map): MapItem {
-  const { id, title, slug, style, zoom } = map;
+  const { id, title, slug, style, zoom, defaultLayers } = map;
   const [longitude, latitude] = map.center.coordinates;
 
   const layers = map.layers.map(({ layer }) => ({
@@ -63,5 +63,6 @@ function toMapItem(map: Map): MapItem {
     style,
     initialViewState,
     layers,
+    defaultLayers,
   };
 }
